@@ -13,12 +13,10 @@ fn main() -> anyhow::Result<()> {
     if let Some(captures) = random_regex.captures(&html_content) {
         // Extract the first captured substring
         if let Some(matched_str) = captures.get(1) {
-            //println!("First matching substring: {}", matched_str.as_str());
             let html_content = reqwest::blocking::get(matched_str.as_str())?.text()?;
             if let Some(captures) = img_regex.captures(&html_content) {
                 // Extract the first captured substring
                 if let Some(matched_str) = captures.get(1) {
-                    //println!("First matching substring: {}", matched_str.as_str());
                     let image_url = format!("https://qwantz.com/{}", matched_str.as_str());
 
                     // Download the target comic and crop it on the fly because why not
@@ -50,7 +48,5 @@ fn main() -> anyhow::Result<()> {
             }
         }
     }
-
-    //println!("{}", parsed);
     Ok(())
 }
